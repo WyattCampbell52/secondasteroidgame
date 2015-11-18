@@ -35,7 +35,7 @@ class Space extends Environment {
     int shipX = 400;
     int shipY = 300;
     int rotationSpeed = 5;
-    int shipSpeed = 5;
+    int shipSpeed = 0;
     int lazerSpeed = 15;
     int lazerX = 400;
     int lazerY = 300;
@@ -119,10 +119,10 @@ class Space extends Environment {
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             angle = ((angle - rotationSpeed) % 360);
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            this.lazerVelocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), shipSpeed);
-            this.velocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), shipSpeed);
+            this.lazerVelocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), ++shipSpeed);
+            this.velocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), ++shipSpeed);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-//            this.lazerVelocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), lazerSpeed);
+            this.lazerVelocity = TrigonometryCalculator.getVelocity(Math.toRadians((angle + 90) % 360), lazerSpeed);
             
 
 
