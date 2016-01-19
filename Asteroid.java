@@ -6,6 +6,8 @@
 package secondasteroidgame;
 
 import environment.Velocity;
+import images.ResourceTools;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -17,8 +19,9 @@ import path.TrigonometryCalculator;
  *
  * @author WyattCampbell
  */
-public class Asteroid {
-
+public final class Asteroid {
+    
+//<editor-fold defaultstate="collapsed" desc="Constructors">
     public Asteroid(Image image, int x, int y, Velocity velocity, int angularVelocity, int angle) {
         this.image = image;
         this.x = x;
@@ -26,9 +29,19 @@ public class Asteroid {
         this.velocity = velocity;
         this.angularVelocity = angularVelocity;
         this.angle = angle;
-
     }
-
+    
+    public Asteroid(Image image, int x, int y, Velocity velocity, int angularVelocity, int angle, AsteroidType type) {
+        this.x = x;
+        this.y = y;
+        this.velocity = velocity;
+        this.angularVelocity = angularVelocity;
+        this.angle = angle;
+        
+        setType(type);
+    }
+//</editor-fold>
+    
     public void draw(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
         AffineTransform olde = g2d.getTransform();
@@ -37,9 +50,12 @@ public class Asteroid {
         at.setToRotation(getAngleInRadians(), x + (image.getWidth(null) / 2), y + (image.getHeight(null) / 2));
         g2d.setTransform(at);
         g2d.drawImage(image, x, y, null);
+
+        graphics.setColor(Color.red);
+        graphics.drawRect(x, y, image.getWidth(null), image.getHeight(null));
     }
 
-    public Rectangle getBounds() {
+    public Rectangle rectangle() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }
 
@@ -56,6 +72,7 @@ public class Asteroid {
     private int speed;
     private Image image;
     private int rotationSpeed = 5;
+    private AsteroidType type = AsteroidType.FULL;
 
     /**
      * @return the x
@@ -275,5 +292,30 @@ public class Asteroid {
         this.rotationSpeed = rotationSpeed;
     }
         //</editor-fold>
+
+    /**
+     * @return the type
+     */
+    public AsteroidType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(AsteroidType type) {
+        this.type = type;
+        
+        switch (type){
+            case FULL: 
+                this.image = ResourceTools.loadImageFromResource("");
+                break;
+            case LEFT_HALF: 
+                this.image = ResourceTools.loadImageFromResource("");
+                break;
+                
+                
+        }
+    }
 
 }
